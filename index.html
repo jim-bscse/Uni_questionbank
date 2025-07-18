@@ -1,0 +1,1947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXAM_PREP - Enhanced Course Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-card-1 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .gradient-card-2 {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .gradient-card-3 {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        
+        .gradient-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .nav-link {
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .nav-link:hover {
+            transform: translateX(4px);
+        }
+        
+        .nav-link.active {
+            color: #8B5CF6;
+            background-color: #F3F4F6;
+        }
+        
+        .course-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .trimester-card {
+            transition: all 0.3s ease;
+        }
+        
+        .trimester-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(139, 92, 246, 0.3);
+        }
+        
+        .btn-primary {
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+        }
+        
+        .profile-avatar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .team-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .team-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .social-link {
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .social-link:hover {
+            transform: scale(1.1);
+        }
+        
+        .year-divider {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .mobile-menu-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-menu-btn:hover {
+            transform: rotate(90deg);
+        }
+        
+        /* Trimester Details Styles */
+        .pill-tabs {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50px;
+            padding: 4px;
+            display: flex;
+            position: relative;
+            box-shadow: 0 8px 32px rgba(139, 92, 246, 0.3);
+        }
+        
+        .pill-tab {
+            flex: 1;
+            padding: 16px 24px;
+            border-radius: 46px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .pill-tab.active {
+            background: white;
+            color: #667eea;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .pill-tab:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .content-box {
+            background: white;
+            border-radius: 24px;
+            padding: 32px;
+            margin-top: 8px; /* Reduced from 24px */
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.1);
+            border: 2px solid #f0f0f0;
+            position: relative;
+            transform: translateY(-20px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .content-box.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .content-box::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-bottom: 12px solid white;
+            transition: all 0.3s ease;
+        }
+        
+        .content-box.active::before {
+            top: -10px;
+        }
+        
+        .content-placeholder {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6b7280;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 16px;
+            border: 2px dashed #d1d5db;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .content-placeholder::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(139, 92, 246, 0.05), transparent);
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        .content-placeholder i {
+            font-size: 48px;
+            color: #9ca3af;
+            margin-bottom: 16px;
+            display: block;
+        }
+        
+        /* Fixed Arrow Indicator */
+        .arrow-indicator {
+            position: absolute;
+            top: calc(100% - 4px);
+            width: 16px;
+            height: 16px;
+            background: white;
+            transform: rotate(45deg);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 2px;
+            opacity: 0;
+            visibility: hidden;
+            box-shadow: 0 2px 8px rgba(139, 92, 246, 0.2);
+        }
+        
+        .arrow-indicator.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Dynamic arrow positioning */
+        .arrow-indicator.tab-1 { 
+            left: calc(16.66% - 8px);
+        }
+        .arrow-indicator.tab-2 { 
+            left: calc(50% - 8px);
+        }
+        .arrow-indicator.tab-3 { 
+            left: calc(83.33% - 8px);
+        }
+        
+        /* Auth Pages Styles */
+        .auth-container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .auth-card {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            width: 100%;
+            max-width: 420px;
+        }
+        
+        .auth-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            margin-bottom: 16px;
+        }
+        
+        .auth-input:focus {
+            outline: none;
+            border-color: #8B5CF6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
+        
+        .auth-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 16px;
+        }
+        
+        .auth-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+        }
+        
+        .country-code-select {
+            width: 100px;
+            padding: 12px 8px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 14px;
+            margin-right: 8px;
+        }
+        
+        .phone-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+        }
+        
+        .password-strength {
+            height: 4px;
+            border-radius: 2px;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .strength-weak { background: #ef4444; }
+        .strength-medium { background: #f59e0b; }
+        .strength-strong { background: #10b981; }
+        
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                z-index: 50;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease-in-out;
+            }
+            
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            
+            .mobile-nav-dropdown {
+                transform: translateY(-20px);
+                opacity: 0;
+                transition: all 0.3s ease;
+                pointer-events: none;
+            }
+            
+            .mobile-nav-dropdown.open {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: auto;
+            }
+            
+            .pill-tabs {
+                flex-direction: row;
+                padding: 6px;
+                overflow-x: auto;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+            
+            .pill-tabs::-webkit-scrollbar {
+                display: none;
+            }
+            
+            .pill-tab {
+                min-width: 120px;
+                margin-right: 4px;
+                border-radius: 20px;
+                font-size: 14px;
+                padding: 12px 16px;
+            }
+            
+            .pill-tab:last-child {
+                margin-right: 0;
+            }
+            
+            .arrow-indicator {
+                display: none;
+            }
+            
+            .content-box {
+                margin-top: 16px;
+                padding: 24px;
+            }
+            
+            .content-box::before {
+                display: none;
+            }
+            
+            .trimester-card {
+                margin-bottom: 16px;
+            }
+            
+            .course-card {
+                margin-bottom: 16px;
+            }
+            
+            .team-card {
+                margin-bottom: 16px;
+            }
+            
+            .auth-card {
+                padding: 24px;
+                margin: 16px;
+            }
+            
+            .main-content {
+                margin-left: 0 !important;
+            }
+        }
+        
+        /* Tablet Responsive */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .sidebar {
+                width: 240px;
+            }
+            
+            .main-content {
+                margin-left: 240px;
+            }
+            
+            .pill-tab {
+                padding: 14px 20px;
+                font-size: 15px;
+            }
+            
+            .content-box {
+                padding: 28px;
+            }
+        }
+        
+        /* Desktop Responsive */
+        @media (min-width: 1025px) {
+            .main-content {
+                margin-left: 0px;
+            }
+        }
+        
+        .page-section {
+            display: none;
+        }
+        
+        .page-section.active {
+            display: block;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .pulse-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        
+        /* Hamburger Menu Animation */
+        .hamburger-line {
+            width: 24px;
+            height: 2px;
+            background: #374151;
+            margin: 4px 0;
+            transition: 0.3s;
+        }
+        
+        .hamburger.active .hamburger-line:nth-child(1) {
+            transform: rotate(-45deg) translate(-4px, 4px);
+        }
+        
+        .hamburger.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active .hamburger-line:nth-child(3) {
+            transform: rotate(45deg) translate(-4px, -4px);
+        }
+        
+        /* Enhanced Mobile Navigation */
+        .mobile-nav-toggle {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-nav-toggle {
+                display: block;
+            }
+            
+            .desktop-nav {
+                display: none;
+            }
+            
+            .mobile-sidebar-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 40;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
+            
+            .mobile-sidebar-overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+        
+        /* Enhanced Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #374151;
+        }
+        
+        .form-error {
+            color: #ef4444;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+        
+        .form-success {
+            color: #10b981;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+        
+        /* Loading States */
+        .loading {
+            position: relative;
+            pointer-events: none;
+        }
+        
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid #ffffff;
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Improved Accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        .focus-visible:focus {
+            outline: 2px solid #8B5CF6;
+            outline-offset: 2px;
+        }
+        
+        /* PDF Export Optimization */
+        @media print {
+            .sidebar, .mobile-menu-btn, .mobile-nav-dropdown, .mobile-sidebar-overlay {
+                display: none !important;
+            }
+            
+            .main-content {
+                margin-left: 0 !important;
+            }
+            
+            .page-section {
+                display: block !important;
+                page-break-inside: avoid;
+            }
+            
+            .content-box {
+                transform: none !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Mobile Sidebar Overlay -->
+    <div class="mobile-sidebar-overlay" id="mobileSidebarOverlay" onclick="toggleMobileSidebar()"></div>
+    
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside class="sidebar w-64 bg-white shadow-xl border-r border-gray-200 flex flex-col relative z-50" role="navigation" aria-label="Main navigation">
+            <!-- Logo -->
+            <div class="p-6 border-b border-gray-100">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center shadow-lg">
+                        <i class="fas fa-graduation-cap text-white text-lg" aria-hidden="true"></i>
+                    </div>
+                    <span class="ml-3 text-xl font-bold text-gray-800">EXAM_PREP</span>
+                </div>
+            </div>
+            
+            <!-- Navigation -->
+            <nav class="flex-1 p-4 space-y-2" aria-label="Main menu">
+                <a href="#" class="nav-link nav-dashboard active flex items-center px-4 py-3 text-purple-600 bg-purple-50 rounded-xl font-medium" onclick="showSection('dashboard')">
+                    <i class="fas fa-tachometer-alt w-5 text-purple-600" aria-hidden="true"></i>
+                    <span class="ml-3">Dashboard</span>
+                </a>
+                <a href="#" class="nav-link nav-about flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 hover:text-purple-600 rounded-xl font-medium" onclick="showSection('about')">
+                    <i class="fas fa-info-circle w-5" aria-hidden="true"></i>
+                    <span class="ml-3">About us</span>
+                </a>
+                <a href="#" class="nav-link flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 hover:text-purple-600 rounded-xl font-medium">
+                    <i class="fas fa-book w-5" aria-hidden="true"></i>
+                    <span class="ml-3">Lesson</span>
+                </a>
+                <a href="#" class="nav-link flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 hover:text-purple-600 rounded-xl font-medium">
+                    <i class="fas fa-tasks w-5" aria-hidden="true"></i>
+                    <span class="ml-3">Task</span>
+                </a>
+            </nav>
+            
+            <!-- Settings -->
+            <div class="p-4 border-t border-gray-100">
+                <nav class="space-y-2">
+                    <a href="#" class="nav-link flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-xl font-medium">
+                        <i class="fas fa-cog w-5" aria-hidden="true"></i>
+                        <span class="ml-3">Settings</span>
+                    </a>
+                    <a href="#" class="nav-link flex items-center px-4 py-3 text-red-600 hover:bg-red-50 rounded-xl font-medium" onclick="showSection('login')">
+                        <i class="fas fa-sign-out-alt w-5" aria-hidden="true"></i>
+                        <span class="ml-3">Logout</span>
+                    </a>
+                </nav>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col min-w-0 main-content">
+            <!-- Header -->
+            <header class="bg-white shadow-sm border-b border-gray-200 p-5" id="main-header">
+                <div class="flex items-center justify-between">
+                    <!-- Mobile Navigation -->
+                    <div class="md:hidden flex items-center space-x-3">
+                        <button class="mobile-nav-toggle p-2 rounded-lg hover:bg-gray-100" onclick="toggleMobileSidebar()" aria-label="Toggle navigation menu">
+                            <div class="hamburger" id="hamburger">
+                                <div class="hamburger-line"></div>
+                                <div class="hamburger-line"></div>
+                                <div class="hamburger-line"></div>
+                            </div>
+                        </button>
+                        
+                        <!-- Mobile Navigation Dropdown -->
+                        <div class="mobile-nav-dropdown absolute top-16 left-5 bg-white rounded-xl shadow-xl border border-gray-200 py-2 min-w-48 z-50" id="mobileNavDropdown">
+                            <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition-colors" onclick="showSection('dashboard'); toggleMobileMenu()">
+                                <i class="fas fa-tachometer-alt w-5 mr-3"></i>Dashboard
+                            </a>
+                            <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition-colors" onclick="showSection('about'); toggleMobileMenu()">
+                                <i class="fas fa-info-circle w-5 mr-3"></i>About us
+                            </a>
+                            <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition-colors" onclick="toggleMobileMenu()">
+                                <i class="fas fa-book w-5 mr-3"></i>Lesson
+                            </a>
+                            <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition-colors" onclick="toggleMobileMenu()">
+                                <i class="fas fa-tasks w-5 mr-3"></i>Task
+                            </a>
+                            <hr class="my-2 border-gray-200">
+                            <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition-colors" onclick="toggleMobileMenu()">
+                                <i class="fas fa-cog w-5 mr-3"></i>Settings
+                            </a>
+                            <a href="#" class="block px-4 py-3 text-red-600 hover:bg-red-50 transition-colors" onclick="showSection('login'); toggleMobileMenu()">
+                                <i class="fas fa-sign-out-alt w-5 mr-3"></i>Logout
+                            </a>
+                        </div>
+                    </div>
+                    
+                     
+                    <!-- Search Bar -->
+                    <div class="flex-1 max-w-xl mx-auto" id="search-container">
+                        <div class="relative">
+                            <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" aria-hidden="true"></i>
+                            <input type="text" placeholder="Search your course here..." class="w-full pl-12 pr-12 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all" aria-label="Search courses">
+                            <button class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-purple-600 transition-colors" aria-label="Filter results">
+                                <i class="fas fa-filter"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Mobile Profile Button -->
+                    <button class="md:hidden profile-avatar w-10 h-10 rounded-full flex items-center justify-center text-white font-bold shadow-lg" onclick="toggleMobileProfile()">
+                        A
+                    </button>
+                </div>
+            </header>
+            
+            <!-- Login Page -->
+             <div class="auth-container page-section" id="login-section">
+            <div class="auth-card">
+                <div class="text-center mb-8">
+                    <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                        <i class="fas fa-graduation-cap text-white text-2xl"></i>
+                    </div>
+                    <h1 class="text-3xl font-bold text-gray-800 mb-2">Welcome Back</h1>
+                    <p class="text-gray-600">Sign in to your EXAM_PREP account</p>
+                </div>
+                
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label class="form-label">Student ID</label>
+                        <input type="text" id="studentId" class="auth-input" placeholder="Enter your student ID" required>
+                        <span class="form-error" id="studentIdError"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <div class="relative">
+                            <input type="password" id="loginPassword" class="auth-input pr-12" placeholder="Enter your password" required>
+                            <button type="button" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600" onclick="togglePasswordVisibility('loginPassword')">
+                                <i class="fas fa-eye" id="loginPasswordToggle"></i>
+                            </button>
+                        </div>
+                        <span class="form-error" id="loginPasswordError"></span>
+                    </div>
+                    
+                    <div class="flex items-center justify-between mb-6">
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-2 rounded" id="rememberMe">
+                            <span class="text-sm text-gray-600">Remember me</span>
+                        </label>
+                        <a href="#" class="text-sm text-purple-600 hover:text-purple-800">Forgot password?</a>
+                    </div>
+                    
+                    <button type="submit" class="auth-btn">Sign In</button>
+                </form>
+                
+                <div class="text-center">
+                    <p class="text-gray-600">Don't have an account? 
+                        <button class="text-purple-600 hover:text-purple-800 font-medium" onclick="showSection('register')">
+                            Register here
+                        </button>
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Register Section -->
+        <div class="auth-container page-section" id="register-section">
+            <div class="auth-card">
+                <div class="text-center mb-8">
+                    <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                        <i class="fas fa-graduation-cap text-white text-2xl"></i>
+                    </div>
+                    <h1 class="text-3xl font-bold text-gray-800 mb-2">Create Account</h1>
+                    <p class="text-gray-600">Join EXAM_PREP and start your journey</p>
+                </div>
+                
+                <form id="registerForm" onsubmit="handleRegister(event)">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" id="fullName" class="auth-input" placeholder="Enter your full name" required>
+                        <span class="form-error" id="fullNameError"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">University Mail ID</label>
+                        <input type="email" id="universityEmail" class="auth-input" placeholder="Enter your university email" required>
+                        <span class="form-error" id="universityEmailError"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Mobile Number</label>
+                        <div class="phone-container">
+                            <select class="country-code" id="countryCode">
+                                <option value="+1">+1</option>
+                                <option value="+44">+44</option>
+                                <option value="+91">+91</option>
+                                <option value="+880">+880</option>
+                                <option value="+86">+86</option>
+                                <option value="+81">+81</option>
+                                <option value="+49">+49</option>
+                                <option value="+33">+33</option>
+                            </select>
+                            <input type="tel" id="mobileNumber" class="phone-input" placeholder="Enter mobile number" required>
+                        </div>
+                        <span class="form-error" id="mobileNumberError"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Student ID</label>
+                        <input type="text" id="registerStudentId" class="auth-input" placeholder="Enter your student ID" required>
+                        <span class="form-error" id="registerStudentIdError"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Create Password</label>
+                        <div class="relative">
+                            <input type="password" id="registerPassword" class="auth-input pr-12" placeholder="Create a secure password" required oninput="checkPasswordStrength(this.value)">
+                            <button type="button" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600" onclick="togglePasswordVisibility('registerPassword')">
+                                <i class="fas fa-eye" id="registerPasswordToggle"></i>
+                            </button>
+                        </div>
+                        <div class="password-strength" id="passwordStrength"></div>
+                        <div class="text-sm text-gray-600 mt-2">
+                            <ul class="text-xs space-y-1">
+                                <li id="req-length" class="text-red-500">• At least 8 characters</li>
+                                <li id="req-uppercase" class="text-red-500">• One uppercase letter</li>
+                                <li id="req-lowercase" class="text-red-500">• One lowercase letter</li>
+                                <li id="req-number" class="text-red-500">• One number</li>
+                            </ul>
+                        </div>
+                        <span class="form-error" id="registerPasswordError"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Confirm Password</label>
+                        <div class="relative">
+                            <input type="password" id="confirmPassword" class="auth-input pr-12" placeholder="Confirm your password" required>
+                            <button type="button" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600" onclick="togglePasswordVisibility('confirmPassword')">
+                                <i class="fas fa-eye" id="confirmPasswordToggle"></i>
+                            </button>
+                        </div>
+                        <span class="form-error" id="confirmPasswordError"></span>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="flex items-start">
+                            <input type="checkbox" class="mr-2 mt-1 rounded" id="agreeTerms" required>
+                            <span class="text-sm text-gray-600">I agree to the 
+                                <a href="#" class="text-purple-600 hover:text-purple-800">Terms of Service</a> 
+                                and 
+                                <a href="#" class="text-purple-600 hover:text-purple-800">Privacy Policy</a>
+                            </span>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="auth-btn">Create Account</button>
+                </form>
+                
+                <div class="text-center">
+                    <p class="text-gray-600">Already have an account? 
+                        <button class="text-purple-600 hover:text-purple-800 font-medium" onclick="showSection('login')">
+                            Sign in here
+                        </button>
+                    </p>
+                </div>
+            </div>
+        </div>
+            
+            <!-- Dashboard Content -->
+            <main class="flex-1 p-4 md:p-6 overflow-y-auto page-section active" id="dashboard-section">
+            <div class="flex items-center justify-between mb-8">
+                <h1 class="text-2xl md:text-3xl font-bold text-gray-800">Your Courses</h1>
+                <div class="flex items-center space-x-3">
+                    <button class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-purple-100 hover:text-purple-600 transition-colors">
+                        <i class="fas fa-question text-gray-600"></i>
+                    </button>
+                    <button class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-purple-100 hover:text-purple-600 transition-colors">
+                        <i class="fas fa-plus text-gray-600"></i>
+                    </button>
+                </div>
+            </div>
+                
+                <!-- Course Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    <!-- Course Card 1 -->
+                    <article class="course-card bg-white rounded-2xl shadow-lg overflow-hidden">
+                        <div class="gradient-card-1 h-36 relative">
+                            <div class="absolute top-4 left-4">
+                                <span class="bg-white bg-opacity-90 text-xs font-semibold px-3 py-1 rounded-full text-gray-700">Course</span>
+                            </div>
+                            <div class="absolute bottom-4 left-4 text-white">
+                                <h3 class="text-2xl font-bold">MATH 1211</h3>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center justify-center space-x-4">
+                                <button class="btn-primary bg-purple-600 hover:bg-purple-700 text-white w-24 h-12 flex items-center justify-center rounded-full font-medium text-xl shadow-md" onclick="showTrimesterSelection('mid')">
+                                    Mid
+                                </button>
+                                <button class="btn-primary bg-purple-600 hover:bg-purple-700 text-white w-24 h-12 flex items-center justify-center rounded-full font-medium text-xl shadow-md" onclick="showTrimesterSelection('final')">
+                                    Final
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Course Card 2 -->
+                    <article class="course-card bg-white rounded-2xl shadow-lg overflow-hidden">
+                        <div class="gradient-card-2 h-36 relative">
+                            <div class="absolute top-4 left-4">
+                                <span class="bg-white bg-opacity-90 text-xs font-semibold px-3 py-1 rounded-full text-gray-700">Course</span>
+                            </div>
+                            <div class="absolute bottom-4 left-4 text-white">
+                                <h3 class="text-2xl font-bold">MATH 1211</h3>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center justify-center space-x-4">
+                                <button class="btn-primary bg-purple-600 hover:bg-purple-700 text-white w-24 h-12 flex items-center justify-center rounded-full font-medium text-xl shadow-md" onclick="showTrimesterSelection('mid')">
+                                    Mid
+                                </button>
+                                <button class="btn-primary bg-purple-600 hover:bg-purple-700 text-white w-24 h-12 flex items-center justify-center rounded-full font-medium text-xl shadow-md" onclick="showTrimesterSelection('final')">
+                                    Final
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Course Card 3 -->
+                    <article class="course-card bg-white rounded-2xl shadow-lg overflow-hidden">
+                        <div class="gradient-card-3 h-36 relative">
+                            <div class="absolute top-4 left-4">
+                                <span class="bg-white bg-opacity-90 text-xs font-semibold px-3 py-1 rounded-full text-gray-700">Course</span>
+                            </div>
+                            <div class="absolute bottom-4 left-4 text-white">
+                                <h3 class="text-2xl font-bold">MATH 1211</h3>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center justify-center space-x-4">
+                                <button class="btn-primary bg-purple-600 hover:bg-purple-700 text-white w-24 h-12 flex items-center justify-center rounded-full font-medium text-xl shadow-md" onclick="showTrimesterSelection('mid')">
+                                    Mid
+                                </button>
+                                <button class="btn-primary bg-purple-600 hover:bg-purple-700 text-white w-24 h-12 flex items-center justify-center rounded-full font-medium text-xl shadow-md" onclick="showTrimesterSelection('final')">
+                                    Final
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+            
+            <!-- Trimester Selection Content -->
+            <main class="flex-1 p-6 overflow-y-auto page-section fade-in" id="trimester-section">
+                <div class="max-w-6xl mx-auto">
+                    <!-- Back Button -->
+                    <div class="mb-6">
+                        <button class="flex items-center text-purple-600 hover:text-purple-800 transition-colors" onclick="showSection('dashboard')">
+                            <i class="fas fa-arrow-left mr-2"></i>
+                            <span class="font-medium">Back to Dashboard</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Header -->
+                    <div class="gradient-header text-white text-center py-12 px-6 rounded-2xl mb-8">
+                        <h1 class="text-3xl md:text-4xl font-bold mb-4" data-aos="fade-up">Select a Trimester</h1>
+                        <p class="text-lg md:text-xl opacity-90" data-aos="fade-up" data-aos-delay="200" id="examType">
+                            Choose your preferred trimester for Mid-Term examination
+                        </p>
+                    </div>
+                    
+                    <!-- Trimester Selection by Year -->
+                    <div class="space-y-12">
+                        <!-- 2025 -->
+                        <div class="year-section" data-aos="fade-up">
+                            <div class="year-divider text-white py-4 px-6 rounded-xl mb-6">
+                                <h2 class="text-2xl font-bold text-center">2025</h2>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <div class="trimester-card bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-2xl cursor-pointer" data-aos="fade-up" data-aos-delay="100" onclick="selectTrimester('251')">
+                                    <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-violet-600 rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg">
+                                        <span class="text-white text-2xl font-bold">251</span>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2">Spring 2025</h3>
+                                    <p class="text-gray-600 text-sm">January - April 2025</p>
+                                </div>
+                                <div class="trimester-card bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-2xl cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="selectTrimester('252')">
+                                    <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg">
+                                        <span class="text-white text-2xl font-bold">252</span>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2">Summer 2025</h3>
+                                    <p class="text-gray-600 text-sm">May - August 2025</p>
+                                </div>
+                                <div class="trimester-card bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-2xl cursor-pointer" data-aos="fade-up" data-aos-delay="300" onclick="selectTrimester('253')">
+                                    <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-teal-500 rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg">
+                                        <span class="text-white text-2xl font-bold">253</span>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2">Fall 2025</h3>
+                                    <p class="text-gray-600 text-sm">September - December 2025</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 2024 -->
+                        <div class="year-section" data-aos="fade-up">
+                            <div class="year-divider text-white py-4 px-6 rounded-xl mb-6">
+                                <h2 class="text-2xl font-bold text-center">2024</h2>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <div class="trimester-card bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-2xl cursor-pointer" data-aos="fade-up" data-aos-delay="100" onclick="selectTrimester('241')">
+                                    <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-violet-600 rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg">
+                                        <span class="text-white text-2xl font-bold">241</span>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2">Spring 2024</h3>
+                                    <p class="text-gray-600 text-sm">January - April 2024</p>
+                                </div>
+                                <div class="trimester-card bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-2xl cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="selectTrimester('242')">
+                                    <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg">
+                                        <span class="text-white text-2xl font-bold">242</span>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2">Summer 2024</h3>
+                                    <p class="text-gray-600 text-sm">May - August 2024</p>
+                                </div>
+                                <div class="trimester-card bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-2xl cursor-pointer" data-aos="fade-up" data-aos-delay="300" onclick="selectTrimester('243')">
+                                    <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-teal-500 rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg">
+                                        <span class="text-white text-2xl font-bold">243</span>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2">Fall 2024</h3>
+                                    <p class="text-gray-600 text-sm">September - December 2024</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 2023 -->
+                        <div class="year-section" data-aos="fade-up">
+                            <div class="year-divider text-white py-4 px-6 rounded-xl mb-6">
+                                <h2 class="text-2xl font-bold text-center">2023</h2>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <div class="trimester-card bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-2xl cursor-pointer" data-aos="fade-up" data-aos-delay="100" onclick="selectTrimester('231')">
+                                    <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-violet-600 rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg">
+                                        <span class="text-white text-2xl font-bold">231</span>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2">Spring 2023</h3>
+                                    <p class="text-gray-600 text-sm">January - April 2023</p>
+                                </div>
+                                <div class="trimester-card bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-2xl cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="selectTrimester('232')">
+                                    <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg">
+                                        <span class="text-white text-2xl font-bold">232</span>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2">Summer 2023</h3>
+                                    <p class="text-gray-600 text-sm">May - August 2023</p>
+                                </div>
+                                <div class="trimester-card bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-2xl cursor-pointer" data-aos="fade-up" data-aos-delay="300" onclick="selectTrimester('233')">
+                                    <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-teal-500 rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg">
+                                        <span class="text-white text-2xl font-bold">233</span>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2">Fall 2023</h3>
+                                    <p class="text-gray-600 text-sm">September - December 2023</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 2022 -->
+                        <div class="year-section" data-aos="fade-up">
+                            <div class="year-divider text-white py-4 px-6 rounded-xl mb-6">
+                                <h2 class="text-2xl font-bold text-center">2022</h2>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <div class="trimester-card bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-2xl cursor-pointer" data-aos="fade-up" data-aos-delay="100" onclick="selectTrimester('221')">
+                                    <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-violet-600 rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg">
+                                        <span class="text-white text-2xl font-bold">221</span>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2">Spring 2022</h3>
+                                    <p class="text-gray-600 text-sm">January - April 2022</p>
+                                </div>
+                                <div class="trimester-card bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-2xl cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="selectTrimester('222')">
+                                    <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg">
+                                        <span class="text-white text-2xl font-bold">222</span>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2">Summer 2022</h3>
+                                    <p class="text-gray-600 text-sm">May - August 2022</p>
+                                </div>
+                                <div class="trimester-card bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-2xl cursor-pointer" data-aos="fade-up" data-aos-delay="300" onclick="selectTrimester('223')">
+                                    <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-teal-500 rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg">
+                                        <span class="text-white text-2xl font-bold">223</span>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2">Fall 2022</h3>
+                                    <p class="text-gray-600 text-sm">September - December 2022</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 2021 -->
+                        <div class="year-section" data-aos="fade-up">
+                            <div class="year-divider text-white py-4 px-6 rounded-xl mb-6">
+                                <h2 class="text-2xl font-bold text-center">2021</h2>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <div class="trimester-card bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-2xl cursor-pointer" data-aos="fade-up" data-aos-delay="100" onclick="selectTrimester('211')">
+                                    <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-violet-600 rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg">
+                                        <span class="text-white text-2xl font-bold">211</span>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2">Spring 2021</h3>
+                                    <p class="text-gray-600 text-sm">January - April 2021</p>
+                                </div>
+                                <div class="trimester-card bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-2xl cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="selectTrimester('212')">
+                                    <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg">
+                                        <span class="text-white text-2xl font-bold">212</span>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2">Summer 2021</h3>
+                                    <p class="text-gray-600 text-sm">May - August 2021</p>
+                                </div>
+                                <div class="trimester-card bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-2xl cursor-pointer" data-aos="fade-up" data-aos-delay="300" onclick="selectTrimester('213')">
+                                    <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-teal-500 rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg">
+                                        <span class="text-white text-2xl font-bold">213</span>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2">Fall 2021</h3>
+                                    <p class="text-gray-600 text-sm">September - December 2021</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 2020 -->
+                        <div class="year-section" data-aos="fade-up">
+                            <div class="year-divider text-white py-4 px-6 rounded-xl mb-6">
+                                <h2 class="text-2xl font-bold text-center">2020</h2>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <div class="trimester-card bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-2xl cursor-pointer" data-aos="fade-up" data-aos-delay="100" onclick="selectTrimester('201')">
+                                    <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-violet-600 rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg">
+                                        <span class="text-white text-2xl font-bold">201</span>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2">Spring 2020</h3>
+                                    <p class="text-gray-600 text-sm">January - April 2020</p>
+                                </div>
+                                <div class="trimester-card bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-2xl cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="selectTrimester('202')">
+                                    <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg">
+                                        <span class="text-white text-2xl font-bold">202</span>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2">Summer 2020</h3>
+                                    <p class="text-gray-600 text-sm">May - August 2020</p>
+                                </div>
+                                <div class="trimester-card bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-2xl cursor-pointer" data-aos="fade-up" data-aos-delay="300" onclick="selectTrimester('203')">
+                                    <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-teal-500 rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg">
+                                        <span class="text-white text-2xl font-bold">203</span>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2">Fall 2020</h3>
+                                    <p class="text-gray-600 text-sm">September - December 2020</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 2019 -->
+                        <div class="year-section" data-aos="fade-up">
+                            <div class="year-divider text-white py-4 px-6 rounded-xl mb-6">
+                                <h2 class="text-2xl font-bold text-center">2019</h2>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <div class="trimester-card bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-2xl cursor-pointer" data-aos="fade-up" data-aos-delay="100" onclick="selectTrimester('191')">
+                                    <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-violet-600 rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg">
+                                        <span class="text-white text-2xl font-bold">191</span>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2">Spring 2019</h3>
+                                    <p class="text-gray-600 text-sm">January - April 2019</p>
+                                </div>
+                                <div class="trimester-card bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-2xl cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="selectTrimester('192')">
+                                    <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg">
+                                        <span class="text-white text-2xl font-bold">192</span>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2">Summer 2019</h3>
+                                    <p class="text-gray-600 text-sm">May - August 2019</p>
+                                </div>
+                                <div class="trimester-card bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-2xl cursor-pointer" data-aos="fade-up" data-aos-delay="300" onclick="selectTrimester('193')">
+                                    <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-teal-500 rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg">
+                                        <span class="text-white text-2xl font-bold">193</span>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2">Fall 2019</h3>
+                                    <p class="text-gray-600 text-sm">September - December 2019</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            
+            <!-- Trimester Details Content -->
+            <main class="flex-1 p-6 overflow-y-auto page-section fade-in" id="trimester-details-section">
+                <div class="max-w-4xl mx-auto">
+                    <!-- Back Button -->
+                    <div class="mb-6">
+                        <button class="flex items-center text-purple-600 hover:text-purple-800 transition-colors" onclick="showSection('trimester')">
+                            <i class="fas fa-arrow-left mr-2"></i>
+                            <span class="font-medium">Back to Trimester Selection</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Header -->
+                    <div class="text-center mb-8">
+                        <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2" id="trimesterTitle">Trimester 231</h1>
+                        <p class="text-lg text-gray-600" id="trimesterSubtitle">Spring 2023 - Mid-Term Resources</p>
+                    </div>
+                    
+                    <!-- Pill Tabs -->
+                    <div class="relative mb-6">
+                        <div class="pill-tabs max-w-md mx-auto">
+                            <div class="pill-tab active" data-tab="1" onclick="switchTab(1)">
+                                <i class="fas fa-question-circle mr-2"></i>
+                                Question
+                            </div>
+                            <div class="pill-tab active" data-tab="2" onclick="switchTab(2)">
+                                <i class="fas fa-clipboard-check mr-2"></i>
+                                Answer
+                            </div>
+                            <div class="pill-tab active" data-tab="3" onclick="switchTab(3)">
+                                <i class="fas fa-sticky-note mr-2"></i>
+                                Note
+                            </div>
+                        </div>
+                        <div class="arrow-indicator tab-1 active" id="arrowIndicator"></div>
+                    </div>
+                    
+                    <!-- Content Boxes -->
+                    <div class="relative">
+                        <!-- Question Content -->
+                        <div class="content-box active" id="content-1">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Question Papers</h3>
+                            <div class="content-placeholder">
+                                <i class="fas fa-file-alt"></i>
+                                <h4 class="text-xl font-semibold mb-2">Question Papers Coming Soon</h4>
+                                <p class="text-gray-500 mb-4">Individual question papers will be added here for your reference and practice.</p>
+                                <div class="flex justify-center">
+                                    <div class="w-16 h-2 bg-gradient-to-r from-purple-500 to-violet-600 rounded-full animate-pulse"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Answer Content -->
+                        <div class="content-box active" id="content-2">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Answer Scripts</h3>
+                            <div class="content-placeholder">
+                                <i class="fas fa-edit"></i>
+                                <h4 class="text-xl font-semibold mb-2">Answer Scripts Coming Soon</h4>
+                                <p class="text-gray-500 mb-4">Individual answered scripts will be added here to help you understand solution methods.</p>
+                                <div class="flex justify-center">
+                                    <div class="w-16 h-2 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full animate-pulse"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Note Content -->
+                        <div class="content-box active" id="content-3">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Study Notes</h3>
+                            <div class="content-placeholder">
+                                <i class="fas fa-book-open"></i>
+                                <h4 class="text-xl font-semibold mb-2">Study Notes Coming Soon</h4>
+                                <p class="text-gray-500 mb-4">Individual note papers will be added here to support your learning journey.</p>
+                                <div class="flex justify-center">
+                                    <div class="w-16 h-2 bg-gradient-to-r from-green-500 to-teal-500 rounded-full animate-pulse"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            
+            <!-- About Us Content -->
+            <main class="flex-1 overflow-y-auto page-section" id="about-section">
+                <!-- Header Section -->
+                <div class="gradient-header text-white text-center py-16 px-6">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-6" data-aos="fade-up">About Us</h1>
+                    <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                        Empowering students to achieve their academic goals through innovative online learning solutions
+                    </p>
+                    
+                    <!-- Social Media Icons -->
+                    <div class="flex justify-center space-x-6" data-aos="fade-up" data-aos-delay="400">
+                        <a href="#" class="social-link w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition-all">
+                            <i class="fab fa-facebook-f text-white text-lg"></i>
+                        </a>
+                        <a href="#" class="social-link w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition-all">
+                            <i class="fab fa-youtube text-white text-lg"></i>
+                        </a>
+                        <a href="#" class="social-link w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition-all">
+                            <i class="fab fa-instagram text-white text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Team Section -->
+                <div class="py-16 px-6 bg-white">
+                    <div class="max-w-6xl mx-auto">
+                        <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-4" data-aos="fade-up">
+                            Meet the Team
+                        </h2>
+                        <p class="text-lg text-gray-600 text-center mb-12 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                            Our passionate team of educators and developers working together to transform online education
+                        </p>
+                        
+                        <!-- Team Grid -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            <!-- Team Member 1 -->
+                            <div class="team-card bg-white rounded-2xl shadow-lg p-6 text-center" data-aos="fade-up" data-aos-delay="300">
+                                <div class="w-24 h-24 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+                                    JS
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-800 mb-2">Jim Hossain</h3>
+                                <p class="text-purple-600 font-medium mb-3">Frontend Developer</p>
+                                <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                                    Full-stack developer with 8+ years of experience in educational technology. Passionate about creating user-friendly learning platforms.
+                                </p>
+                                <div class="flex justify-center space-x-3">
+                                    <a href="#" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-purple-100 hover:text-purple-600 transition-colors">
+                                        <i class="fab fa-linkedin-in text-xs"></i>
+                                    </a>
+                                    <a href="#" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-purple-100 hover:text-purple-600 transition-colors">
+                                        <i class="fab fa-github text-xs"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <!-- Team Member 2 -->
+                            <div class="team-card bg-white rounded-2xl shadow-lg p-6 text-center" data-aos="fade-up" data-aos-delay="400">
+                                <div class="w-24 h-24 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+                                    EM
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-800 mb-2">Rakibul hassan</h3>
+                                <p class="text-purple-600 font-medium mb-3">Backend Developer</p>
+                                <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                                    Creative designer focused on creating intuitive and engaging user experiences. Believes design should make learning accessible to everyone.
+                                </p>
+                                <div class="flex justify-center space-x-3">
+                                    <a href="#" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-purple-100 hover:text-purple-600 transition-colors">
+                                        <i class="fab fa-dribbble text-xs"></i>
+                                    </a>
+                                    <a href="#" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-purple-100 hover:text-purple-600 transition-colors">
+                                        <i class="fab fa-behance text-xs"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <!-- Team Member 3 -->
+                            <div class="team-card bg-white rounded-2xl shadow-lg p-6 text-center" data-aos="fade-up" data-aos-delay="500">
+                                <div class="w-24 h-24 bg-gradient-to-br from-green-500 to-teal-500 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+                                    AR
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-800 mb-2">Dip</h3>
+                                <p class="text-purple-600 font-medium mb-3">Educational Consultant</p>
+                                <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                                    Former mathematics professor with 15+ years of teaching experience. Specializes in curriculum design and student engagement strategies.
+                                </p>
+                                <div class="flex justify-center space-x-3">
+                                    <a href="#" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-purple-100 hover:text-purple-600 transition-colors">
+                                        <i class="fab fa-linkedin-in text-xs"></i>
+                                    </a>
+                                    <a href="#" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-purple-100 hover:text-purple-600 transition-colors">
+                                        <i class="fab fa-twitter text-xs"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <!-- Team Member 4 -->
+                            <div class="team-card bg-white rounded-2xl shadow-lg p-6 text-center" data-aos="fade-up" data-aos-delay="600">
+                                <div class="w-24 h-24 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+                                    SK
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-800 mb-2">Alvi</h3>
+                                <p class="text-purple-600 font-medium mb-3">Content Manager</p>
+                                <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                                    Expert in creating engaging educational content. Ensures all course materials are comprehensive, accurate, and student-friendly.
+                                </p>
+                                <div class="flex justify-center space-x-3">
+                                    <a href="#" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-purple-100 hover:text-purple-600 transition-colors">
+                                        <i class="fab fa-linkedin-in text-xs"></i>
+                                    </a>
+                                    <a href="#" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-purple-100 hover:text-purple-600 transition-colors">
+                                        <i class="fab fa-medium text-xs"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <!-- Team Member 5 -->
+                            <div class="team-card bg-white rounded-2xl shadow-lg p-6 text-center" data-aos="fade-up" data-aos-delay="700">
+                                <div class="w-24 h-24 bg-gradient-to-br from-red-500 to-pink-500 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+                                    MJ
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-800 mb-2">Abir Rahman</h3>
+                                <p class="text-purple-600 font-medium mb-3">Data Analyst</p>
+                                <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                                    Analytics expert who helps optimize student performance through data-driven insights and personalized learning recommendations.
+                                </p>
+                                <div class="flex justify-center space-x-3">
+                                    <a href="#" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-purple-100 hover:text-purple-600 transition-colors">
+                                        <i class="fab fa-linkedin-in text-xs"></i>
+                                    </a>
+                                    <a href="#" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-purple-100 hover:text-purple-600 transition-colors">
+                                        <i class="fab fa-kaggle text-xs"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <!-- Team Member 6 -->
+                            <div class="team-card bg-white rounded-2xl shadow-lg p-6 text-center" data-aos="fade-up" data-aos-delay="800">
+                                <div class="w-24 h-24 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+                                    LT
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-800 mb-2">Abdullah</h3>
+                                <p class="text-purple-600 font-medium mb-3">Moderator</p>
+                                <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                                    Dedicated to supporting students throughout their learning journey. Provides guidance, motivation, and resources for academic success.
+                                </p>
+                                <div class="flex justify-center space-x-3">
+                                    <a href="#" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-purple-100 hover:text-purple-600 transition-colors">
+                                        <i class="fab fa-linkedin-in text-xs"></i>
+                                    </a>
+                                    <a href="#" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-purple-100 hover:text-purple-600 transition-colors">
+                                        <i class="fab fa-twitter text-xs"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- CTA Section -->
+                <div class="bg-gray-50 py-16 px-6" data-aos="fade-up">
+                    <div class="max-w-4xl mx-auto text-center">
+                        <h2 class="text-3xl font-bold text-gray-800 mb-4">Ready to Start Your Learning Journey?</h2>
+                        <p class="text-lg text-gray-600 mb-8">
+                            Join thousands of students who are already achieving their academic goals with EXAM_PREP
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <button class="btn-primary bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-xl font-medium shadow-lg" onclick="showSection('register')">
+                                Get Started Today
+                            </button>
+                            <button class="border border-purple-600 text-purple-600 hover:bg-purple-50 px-8 py-3 rounded-xl font-medium transition-colors">
+                                Contact Us
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        
+        <!-- Right Sidebar -->
+        <aside class="w-80 bg-white shadow-xl border-l border-gray-200 hidden lg:block" id="right-sidebar" aria-label="User profile and updates">
+            <!-- Profile Section -->
+            <div class="p-6 border-b border-gray-100">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-bold text-gray-800">Your Profile</h2>
+                    <button class="text-gray-400 hover:text-gray-600 p-2 rounded-full hover:bg-gray-100 transition-colors" aria-label="Profile options">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                </div>
+                <div class="flex items-center mb-6">
+                    <div class="profile-avatar w-16 h-16 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                        A
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="font-bold text-gray-800 text-lg">Hi! Alvi</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Continue Your Journey And Achieve Your Target</p>
+                    </div>
+                </div>
+                <div class="flex space-x-3">
+                    <button class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center hover:bg-purple-100 hover:text-purple-600 transition-colors" aria-label="Notifications">
+                        <i class="fas fa-bell text-gray-600"></i>
+                    </button>
+                    <button class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center hover:bg-purple-100 hover:text-purple-600 transition-colors" aria-label="Messages">
+                        <i class="fas fa-comment text-gray-600"></i>
+                    </button>
+                    <button class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center hover:bg-purple-100 hover:text-purple-600 transition-colors" aria-label="Settings">
+                        <i class="fas fa-cog text-gray-600"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Updates Section -->
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-bold text-gray-800">Your Updates</h2>
+                    <button class="text-gray-400 hover:text-purple-600 p-2 rounded-full hover:bg-gray-100 transition-colors" aria-label="Update notifications">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
+                        <div>
+                            <p class="font-semibold text-gray-800">Mid MATH 121</p>
+                            <p class="text-sm text-purple-600 font-medium">New Update</p>
+                        </div>
+                        <button class="btn-primary bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-full text-sm font-medium shadow-md">
+                            See
+                        </button>
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
+                        <div>
+                            <p class="font-semibold text-gray-800">Mid MATH 121</p>
+                            <p class="text-sm text-purple-600 font-medium">New Update</p>
+                        </div>
+                        <button class="btn-primary bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-full text-sm font-medium shadow-md">
+                            See
+                        </button>
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
+                        <div>
+                            <p class="font-semibold text-gray-800">Mid MATH 121</p>
+                            <p class="text-sm text-purple-600 font-medium">New Update</p>
+                        </div>
+                        <button class="btn-primary bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-full text-sm font-medium shadow-md">
+                            See
+                        </button>
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
+                        <div>
+                            <p class="font-semibold text-gray-800">Mid MATH 121</p>
+                            <p class="text-sm text-purple-600 font-medium">New Update</p>
+                        </div>
+                        <button class="btn-primary bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-full text-sm font-medium shadow-md">
+                            See
+                        </button>
+                    </div>
+                </div>
+                <button class="w-full bg-purple-100 hover:bg-purple-200 text-purple-600 py-3 rounded-xl mt-6 font-medium transition-colors">
+                    See All
+                </button>
+            </div>
+        </aside>
+    </div>
+    
+    <!-- Mobile Profile Overlay -->
+    <div class="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden hidden" id="mobileProfileOverlay">
+        <div class="absolute top-20 right-5 bg-white rounded-xl shadow-xl p-6 w-80 max-w-sm">
+            <div class="flex items-center mb-6">
+                <div class="profile-avatar w-16 h-16 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                    A
+                </div>
+                <div class="ml-4">
+                    <h3 class="font-bold text-gray-800 text-lg">Hi! Alvi</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Continue Your Journey And Achieve Your Target</p>
+                </div>
+            </div>
+            <div class="flex space-x-3 mb-4">
+                <button class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center hover:bg-purple-100 hover:text-purple-600 transition-colors">
+                    <i class="fas fa-bell text-gray-600"></i>
+                </button>
+                <button class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center hover:bg-purple-100 hover:text-purple-600 transition-colors">
+                    <i class="fas fa-comment text-gray-600"></i>
+                </button>
+                <button class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center hover:bg-purple-100 hover:text-purple-600 transition-colors">
+                    <i class="fas fa-cog text-gray-600"></i>
+                </button>
+            </div>
+            <button class="w-full bg-purple-100 hover:bg-purple-200 text-purple-600 py-3 rounded-xl font-medium transition-colors" onclick="toggleMobileProfile()">
+                Close
+            </button>
+        </div>
+    </div>
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+        
+        let currentExamType = 'mid';
+        let currentTrimester = '';
+        let isUsingEmail = true;
+        
+        // Enhanced section management
+        function showSection(sectionName) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.page-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            const targetSection = document.getElementById(sectionName + '-section');
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+            
+            // Update navigation active state
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                link.classList.add('text-gray-600');
+                link.classList.remove('text-purple-600', 'bg-purple-50');
+            });
+            
+            const activeLink = document.querySelector('.nav-' + sectionName);
+            if (activeLink) {
+                activeLink.classList.add('active');
+                activeLink.classList.remove('text-gray-600');
+                activeLink.classList.add('text-purple-600', 'bg-purple-50');
+            }
+            
+            // Show/hide right sidebar and search based on section
+            const rightSidebar = document.getElementById('right-sidebar');
+            const searchContainer = document.getElementById('search-container');
+            
+            if (sectionName === 'about' || sectionName === 'trimester' || sectionName === 'trimester-details' || sectionName === 'login' || sectionName === 'register') {
+                rightSidebar.style.display = 'none';
+                searchContainer.style.display = 'none';
+            } else {
+                rightSidebar.style.display = 'block';
+                searchContainer.style.display = 'block';
+            }
+            
+            // Close mobile sidebar when navigating
+            closeMobileSidebar();
+            
+            // Refresh AOS animations
+            if (sectionName === 'about' || sectionName === 'trimester') {
+                setTimeout(() => {
+                    AOS.refresh();
+                }, 100);
+            }
+        }
+        
+        function showTrimesterSelection(examType) {
+            currentExamType = examType;
+            const examTypeText = examType === 'mid' ? 'Mid-Term' : 'Final';
+            document.getElementById('examType').textContent = `Choose your preferred trimester for ${examTypeText} examination`;
+            showSection('trimester');
+        }
+        
+        function selectTrimester(trimesterCode) {
+            currentTrimester = trimesterCode;
+            
+            // Update trimester details page
+            document.getElementById('trimesterTitle').textContent = `Trimester ${trimesterCode}`;
+            
+            // Get trimester info
+            const trimesterInfo = getTrimesterInfo(trimesterCode);
+            document.getElementById('trimesterSubtitle').textContent = `${trimesterInfo.season} ${trimesterInfo.year} - ${currentExamType.charAt(0).toUpperCase() + currentExamType.slice(1)}-Term Resources`;
+            
+            // Reset tabs to first tab
+            switchTab(1);
+            
+            // Show trimester details page
+            showSection('trimester-details');
+        }
+        
+        function getTrimesterInfo(code) {
+            const year = '20' + code.substring(0, 2);
+            const season = code.substring(2, 3);
+            
+            let seasonName = '';
+            switch(season) {
+                case '1': seasonName = 'Spring'; break;
+                case '2': seasonName = 'Summer'; break;
+                case '3': seasonName = 'Fall'; break;
+                default: seasonName = 'Unknown';
+            }
+            
+            return { year, season: seasonName };
+        }
+        
+        // Fixed tab switching with proper arrow positioning
+        function switchTab(tabNumber) {
+            // Remove active class from all tabs
+            document.querySelectorAll('.pill-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all content boxes
+            document.querySelectorAll('.content-box').forEach(box => {
+                box.classList.remove('active');
+            });
+            
+            // Remove active class from arrow indicator
+            const arrowIndicator = document.getElementById('arrowIndicator');
+            arrowIndicator.classList.remove('active', 'tab-1', 'tab-2', 'tab-3');
+            
+            // Add active class to selected tab
+            document.querySelector(`[data-tab="${tabNumber}"]`).classList.add('active');
+            
+            // Show corresponding content box
+            document.getElementById(`content-${tabNumber}`).classList.add('active');
+            
+            // Update arrow indicator position
+            arrowIndicator.classList.add('active', `tab-${tabNumber}`);
+        }
+        
+        // Enhanced mobile navigation
+        function toggleMobileSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.getElementById('mobileSidebarOverlay');
+            const hamburger = document.getElementById('hamburger');
+            
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+        
+        function closeMobileSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.getElementById('mobileSidebarOverlay');
+            const hamburger = document.getElementById('hamburger');
+            
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+            hamburger.classList.remove('active');
+        }
+        
+        function toggleMobileMenu() {
+            const dropdown = document.getElementById('mobileNavDropdown');
+            dropdown.classList.toggle('open');
+        }
+        
+        function toggleMobileProfile() {
+            const overlay = document.getElementById('mobileProfileOverlay');
+            overlay.classList.toggle('hidden');
+        }
+        
+        // Authentication functions
+        function toggleLoginMethod() {
+            const emailContainer = document.getElementById('emailPhoneContainer');
+            const phoneContainer = document.getElementById('phoneContainer');
+            const toggleText = document.getElementById('toggleText');
+            
+            isUsingEmail = !isUsingEmail;
+            
+            if (isUsingEmail) {
+                emailContainer.style.display = 'block';
+                phoneContainer.style.display = 'none';
+                toggleText.textContent = 'Use phone number instead';
+            } else {
+                emailContainer.style.display = 'none';
+                phoneContainer.style.display = 'flex';
+                toggleText.textContent = 'Use email instead';
+            }
+        }
+        
+        function togglePasswordVisibility(inputId) {
+            const input = document.getElementById(inputId);
+            const toggle = document.getElementById(inputId + 'Toggle');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                toggle.classList.remove('fa-eye');
+                toggle.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                toggle.classList.remove('fa-eye-slash');
+                toggle.classList.add('fa-eye');
+            }
+        }
+        
+        function checkPasswordStrength(password) {
+            const strengthBar = document.getElementById('passwordStrength');
+            const requirements = {
+                length: password.length >= 8,
+                uppercase: /[A-Z]/.test(password),
+                lowercase: /[a-z]/.test(password),
+                number: /\d/.test(password)
+            };
+            
+            // Update requirement indicators
+            Object.keys(requirements).forEach(req => {
+                const element = document.getElementById(`req-${req}`);
+                if (requirements[req]) {
+                    element.classList.remove('text-red-500');
+                    element.classList.add('text-green-500');
+                } else {
+                    element.classList.remove('text-green-500');
+                    element.classList.add('text-red-500');
+                }
+            });
+            
+            // Update strength bar
+            const metRequirements = Object.values(requirements).filter(Boolean).length;
+            
+            if (metRequirements === 0) {
+                strengthBar.className = 'password-strength';
+            } else if (metRequirements <= 2) {
+                strengthBar.className = 'password-strength strength-weak';
+            } else if (metRequirements === 3) {
+                strengthBar.className = 'password-strength strength-medium';
+            } else {
+                strengthBar.className = 'password-strength strength-strong';
+            }
+        }
+        
+        function handleLogin(event) {
+            event.preventDefault();
+            const button = event.target.querySelector('button[type="submit"]');
+            const originalText = button.textContent;
+            
+            // Add loading state
+            button.classList.add('loading');
+            button.textContent = 'Signing in...';
+            button.disabled = true;
+            
+            // Simulate login process
+            setTimeout(() => {
+                button.classList.remove('loading');
+                button.textContent = originalText;
+                button.disabled = false;
+                
+                // Redirect to dashboard
+                showSection('dashboard');
+            }, 2000);
+        }
+        
+        function handleRegister(event) {
+            event.preventDefault();
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            
+            const button = event.target.querySelector('button[type="submit"]');
+            const originalText = button.textContent;
+            
+            // Add loading state
+            button.classList.add('loading');
+            button.textContent = 'Creating account...';
+            button.disabled = true;
+            
+            // Simulate registration process
+            setTimeout(() => {
+                button.classList.remove('loading');
+                button.textContent = originalText;
+                button.disabled = false;
+                
+                // Redirect to dashboard
+                showSection('dashboard');
+            }, 2000);
+        }
+        
+        // Enhanced event listeners
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('mobileNavDropdown');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            const sidebar = document.querySelector('.sidebar');
+            const mobileProfile = document.getElementById('mobileProfileOverlay');
+            
+            // Close mobile menu when clicking outside
+            if (!dropdown.contains(event.target) && !menuBtn.contains(event.target)) {
+                dropdown.classList.remove('open');
+            }
+            
+            // Close mobile profile when clicking outside
+            if (!mobileProfile.contains(event.target) && !event.target.closest('[onclick="toggleMobileProfile()"]')) {
+                mobileProfile.classList.add('hidden');
+            }
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeMobileSidebar();
+                document.getElementById('mobileNavDropdown').classList.remove('open');
+                document.getElementById('mobileProfileOverlay').classList.add('hidden');
+            }
+            
+            // Tab navigation for trimester details
+            if (document.getElementById('trimester-details-section').classList.contains('active')) {
+                if (event.key >= '1' && event.key <= '3') {
+                    switchTab(parseInt(event.key));
+                }
+            }
+        });
+        
+        // Initialize first tab as active
+        document.addEventListener('DOMContentLoaded', function() {
+            switchTab(1);
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Loading states for trimester cards
+        document.querySelectorAll('.trimester-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.classList.add('pulse-gradient');
+                setTimeout(() => {
+                    this.classList.remove('pulse-gradient');
+                }, 1000);
+            });
+        });
+        
+        // Accessibility improvements
+        document.querySelectorAll('a, button').forEach(element => {
+            element.addEventListener('focus', function() {
+                this.style.outline = '2px solid #8B5CF6';
+                this.style.outlineOffset = '2px';
+            });
+            
+            element.addEventListener('blur', function() {
+                this.style.outline = 'none';
+            });
+        });
+        
+        // Form validation enhancements
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('blur', function() {
+                if (this.hasAttribute('required') && !this.value) {
+                    this.style.borderColor = '#ef4444';
+                } else {
+                    this.style.borderColor = '#e5e7eb';
+                }
+            });
+        });
+        
+        // Responsive image loading
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('img[data-src]');
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.remove('lazy');
+                        observer.unobserve(img);
+                    }
+                });
+            });
+            
+            images.forEach(img => imageObserver.observe(img));
+        });
+    </script>
+</body>
+</html>
